@@ -1,13 +1,13 @@
-# JSON Shuttle
+# YAML Shuttle
 
-A small web app to validate, format, repair, and escape JSON. Everything runs in the browser; no data is sent to any server.
+A small web app to validate, format, convert, and escape YAML. Everything runs in the browser; no data is sent to any server.
 
 ## Features
 
-- **Validate** – Parse JSON and see errors with line/column
-- **Beautify / Minify** – Format or compress JSON
-- **Repair** – Fix common issues (trailing commas, unquoted keys, etc.) via [jsonrepair](https://github.com/josdejong/jsonrepair)
-- **Escape / Unescape** – JSON string escaping
+- **Validate** – Parse YAML and see errors with line/column
+- **Beautify / Minify** – Format or compress YAML (flow style)
+- **Convert** – Convert between YAML and JSON
+- **Escape / Unescape** – YAML string escaping
 
 ## Run locally
 
