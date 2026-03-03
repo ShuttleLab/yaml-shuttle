@@ -5,7 +5,7 @@ import { Github } from "lucide-react";
 import { useI18n } from "@/lib/i18n";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-const GITHUB_URL = "https://github.com/ShuttleLab/json-shuttle";
+const GITHUB_URL = "https://github.com/ShuttleLab/yaml-shuttle";
 
 const navItems = [
   { href: "/", key: "nav.home" },

@@ -3,46 +3,46 @@
 import { useCallback, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import {
-  validateJson,
-  beautifyJson,
-  minifyJson,
-  type JsonValidateResult,
-} from "@/lib/json-validator";
+  validateYaml,
+  beautifyYaml,
+  minifyYaml,
+  type YamlValidateResult,
+} from "@/lib/yaml-validator";
 import { InputWithLineNumbers, OutputWithLineNumbers } from "./CodeWithLineNumbers";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 
-export default function JsonValidator() {
+export default function YamlValidator() {
   const { t } = useI18n();
   const [input, setInput] = useState("");
-  const [result, setResult] = useState<JsonValidateResult | null>(null);
+  const [result, setResult] = useState<YamlValidateResult | null>(null);
   const [formattedResult, setFormattedResult] = useState<string | null>(null);
   const [copyLabel, setCopyLabel] = useState<string | null>(null);
 
   const handleValidate = useCallback(() => {
     setFormattedResult(null);
-    setResult(validateJson(input));
+    setResult(validateYaml(input));
   }, [input]);
 
   const handleBeautify = useCallback(() => {
-    const format = beautifyJson(input);
+    const format = beautifyYaml(input);
     if (format.ok) {
       setFormattedResult(format.text);
       setResult(null);
     } else {
       setFormattedResult(null);
-      setResult(validateJson(input));
+      setResult(validateYaml(input));
     }
   }, [input]);
 
   const handleMinify = useCallback(() => {
-    const format = minifyJson(input);
+    const format = minifyYaml(input);
     if (format.ok) {
       setFormattedResult(format.text);
       setResult(null);
     } else {
       setFormattedResult(null);
-      setResult(validateJson(input));
+      setResult(validateYaml(input));
     }
   }, [input]);
 
@@ -50,7 +50,7 @@ export default function JsonValidator() {
     if (!formattedResult) return;
     try {
       await navigator.clipboard.writeText(formattedResult);
-      setCopyLabel(t("jsonValidator.copied"));
+      setCopyLabel(t("yamlValidator.copied"));
       setTimeout(() => setCopyLabel(null), 2000);
     } catch {
       setCopyLabel(null);
@@ -67,20 +67,20 @@ export default function JsonValidator() {
   return (
     <Card
       className="border-chart-1/40 bg-chart-1/5"
-      aria-labelledby="json-validator-title"
+      aria-labelledby="yaml-validator-title"
     >
       <CardHeader>
         <h2
-          id="json-validator-title"
+          id="yaml-validator-title"
           className="text-xl font-bold text-foreground sm:text-2xl"
         >
-          {t("jsonValidator.title")}
+          {t("yamlValidator.title")}
         </h2>
       </CardHeader>
       <CardContent className="space-y-4">
         <InputWithLineNumbers
-          aria-label={t("jsonValidator.ariaLabelInput")}
-          placeholder={t("jsonValidator.placeholder")}
+          aria-label={t("yamlValidator.ariaLabelInput")}
+          placeholder={t("yamlValidator.placeholder")}
           value={input}
           onChange={setInput}
           errorLine={
@@ -93,28 +93,28 @@ export default function JsonValidator() {
           <Button
             type="button"
             size="lg"
-            aria-label={t("jsonValidator.ariaLabelValidate")}
+            aria-label={t("yamlValidator.ariaLabelValidate")}
             onClick={handleValidate}
           >
-            {t("jsonValidator.validate")}
+            {t("yamlValidator.validate")}
           </Button>
           <Button
             type="button"
             variant="success"
             size="lg"
-            aria-label={t("jsonValidator.ariaLabelBeautify")}
+            aria-label={t("yamlValidator.ariaLabelBeautify")}
             onClick={handleBeautify}
           >
-            {t("jsonValidator.beautify")}
+            {t("yamlValidator.beautify")}
           </Button>
           <Button
             type="button"
             className="bg-chart-4 text-white hover:bg-chart-4/90"
             size="lg"
-            aria-label={t("jsonValidator.ariaLabelMinify")}
+            aria-label={t("yamlValidator.ariaLabelMinify")}
             onClick={handleMinify}
           >
-            {t("jsonValidator.minify")}
+            {t("yamlValidator.minify")}
           </Button>
           <Button
             type="button"
@@ -122,7 +122,7 @@ export default function JsonValidator() {
             size="lg"
             onClick={handleClear}
           >
-            {t("jsonValidator.clear")}
+            {t("yamlValidator.clear")}
           </Button>
         </div>
 
@@ -130,11 +130,11 @@ export default function JsonValidator() {
           <div
             className="rounded-lg border-2 border-border bg-card"
             role="region"
-            aria-label={t("jsonValidator.formatResult")}
+            aria-label={t("yamlValidator.formatResult")}
           >
             <div className="flex items-center justify-between gap-2 border-b border-border px-3 py-2">
               <span className="text-base font-semibold text-foreground">
-                {t("jsonValidator.formatResult")}
+                {t("yamlValidator.formatResult")}
               </span>
               <Button
                 type="button"
@@ -142,11 +142,11 @@ export default function JsonValidator() {
                 size="sm"
                 onClick={handleCopyResult}
               >
-                {copyLabel ?? t("jsonValidator.copyResult")}
+                {copyLabel ?? t("yamlValidator.copyResult")}
               </Button>
             </div>
             <OutputWithLineNumbers
-              aria-label={t("jsonValidator.formatResult")}
+              aria-label={t("yamlValidator.formatResult")}
               value={formattedResult}
               minHeight={180}
             />
@@ -166,27 +166,27 @@ export default function JsonValidator() {
           >
             {result.ok ? (
               <p className="text-base font-semibold text-success">
-                {t("jsonValidator.valid")}
+                {t("yamlValidator.valid")}
               </p>
             ) : (
               <div className="space-y-3 text-base">
                 <p className="font-semibold text-destructive">
-                  {t("jsonValidator.invalid")}
+                  {t("yamlValidator.invalid")}
                 </p>
                 <p className="text-muted-foreground">
-                  {t("jsonValidator.errorLineHint")}
+                  {t("yamlValidator.errorLineHint")}
                 </p>
                 <dl className="grid gap-1.5 sm:grid-cols-[auto_1fr]">
                   <dt className="text-muted-foreground">
-                    {t("jsonValidator.line")}:
+                    {t("yamlValidator.line")}:
                   </dt>
                   <dd className="font-mono">{result.line}</dd>
                   <dt className="text-muted-foreground">
-                    {t("jsonValidator.column")}:
+                    {t("yamlValidator.column")}:
                   </dt>
                   <dd className="font-mono">{result.column}</dd>
                   <dt className="text-muted-foreground">
-                    {t("jsonValidator.errorMessage")}:
+                    {t("yamlValidator.errorMessage")}:
                   </dt>
                   <dd className="break-all font-mono text-destructive">
                     {result.message}
@@ -196,7 +196,7 @@ export default function JsonValidator() {
                   result.pointer !== undefined) && (
                   <div className="mt-2 overflow-x-auto rounded border border-border bg-muted/80 p-3 font-mono">
                     <p className="text-muted-foreground">
-                      {t("jsonValidator.errorSnippet")}
+                      {t("yamlValidator.errorSnippet")}
                     </p>
                     <pre className="mt-1 whitespace-pre text-foreground">
                       {result.snippet || " "}

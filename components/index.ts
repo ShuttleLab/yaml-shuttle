@@ -6,7 +6,7 @@
 export { default as Header } from "./Header";
 export { default as Footer } from "./Footer";
 export { default as LanguageSwitcher } from "./LanguageSwitcher";
-export { default as JsonValidator } from "./JsonValidator";
-export { default as JsonRepair } from "./JsonRepair";
-export { default as JsonEscape } from "./JsonEscape";
+export { default as YamlValidator } from "./YamlValidator";
+export { default as YamlConverter } from "./YamlConverter";
+export { default as YamlEscape } from "./YamlEscape";
 export { AboutContent } from "./AboutContent";

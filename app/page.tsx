@@ -1,7 +1,7 @@
 "use client";
 
 import { useI18n } from "@/lib/i18n";
-import { JsonValidator, JsonRepair, JsonEscape } from "@/components";
+import { YamlValidator, YamlConverter, YamlEscape } from "@/components";
 
 export default function Home() {
   const { t } = useI18n();
@@ -18,9 +18,9 @@ export default function Home() {
       </section>
 
       <div className="space-y-10">
-        <JsonValidator />
-        <JsonEscape />
-        <JsonRepair />
+        <YamlValidator />
+        <YamlEscape />
+        <YamlConverter />
       </div>
     </div>
   );

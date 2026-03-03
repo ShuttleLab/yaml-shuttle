@@ -4,8 +4,8 @@
  */
 
 export {
-  validateJson,
-  type JsonValidateResult,
-  type JsonValidateSuccess,
-  type JsonValidateError,
-} from "./json-validator";
+  validateYaml,
+  type YamlValidateResult,
+  type YamlValidateSuccess,
+  type YamlValidateError,
+} from "./yaml-validator";

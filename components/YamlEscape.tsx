@@ -3,14 +3,14 @@
 import { useCallback, useState } from "react";
 import { useI18n } from "@/lib/i18n";
 import {
-  escapeJsonString,
-  unescapeJsonString,
-} from "@/lib/json-validator";
+  escapeYamlString,
+  unescapeYamlString,
+} from "@/lib/yaml-validator";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 
-export default function JsonEscape() {
+export default function YamlEscape() {
   const { t } = useI18n();
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
@@ -19,12 +19,12 @@ export default function JsonEscape() {
 
   const handleEscape = useCallback(() => {
     setError(null);
-    setOutput(escapeJsonString(input));
+    setOutput(escapeYamlString(input));
   }, [input]);
 
   const handleUnescape = useCallback(() => {
     setError(null);
-    const result = unescapeJsonString(input);
+    const result = unescapeYamlString(input);
     if (result.ok) {
       setOutput(result.text);
     } else {
@@ -37,7 +37,7 @@ export default function JsonEscape() {
     if (!output) return;
     try {
       await navigator.clipboard.writeText(output);
-      setCopyLabel(t("jsonEscape.copied"));
+      setCopyLabel(t("yamlEscape.copied"));
       setTimeout(() => setCopyLabel(null), 2000);
     } catch {
       setCopyLabel(null);
@@ -54,26 +54,26 @@ export default function JsonEscape() {
   return (
     <Card
       className="border-chart-3/40 bg-chart-3/5"
-      aria-labelledby="json-escape-title"
+      aria-labelledby="yaml-escape-title"
     >
       <CardHeader>
         <h2
-          id="json-escape-title"
+          id="yaml-escape-title"
           className="text-xl font-bold text-foreground sm:text-2xl"
         >
-          {t("jsonEscape.title")}
+          {t("yamlEscape.title")}
         </h2>
       </CardHeader>
       <CardContent className="space-y-4">
         <div>
-          <label htmlFor="json-escape-input" className="sr-only">
-            {t("jsonEscape.ariaLabelInput")}
+          <label htmlFor="yaml-escape-input" className="sr-only">
+            {t("yamlEscape.ariaLabelInput")}
           </label>
           <Textarea
-            id="json-escape-input"
-            aria-label={t("jsonEscape.ariaLabelInput")}
+            id="yaml-escape-input"
+            aria-label={t("yamlEscape.ariaLabelInput")}
             className="min-h-[120px] resize-y"
-            placeholder={t("jsonEscape.inputPlaceholder")}
+            placeholder={t("yamlEscape.inputPlaceholder")}
             value={input}
             onChange={(e) => {
               setInput(e.target.value);
@@ -88,19 +88,19 @@ export default function JsonEscape() {
             type="button"
             size="lg"
             className="bg-chart-2 text-white hover:bg-chart-2/90"
-            aria-label={t("jsonEscape.ariaLabelEscape")}
+            aria-label={t("yamlEscape.ariaLabelEscape")}
             onClick={handleEscape}
           >
-            {t("jsonEscape.escape")}
+            {t("yamlEscape.escape")}
           </Button>
           <Button
             type="button"
             size="lg"
             className="bg-chart-1 text-white hover:bg-chart-1/90"
-            aria-label={t("jsonEscape.ariaLabelUnescape")}
+            aria-label={t("yamlEscape.ariaLabelUnescape")}
             onClick={handleUnescape}
           >
-            {t("jsonEscape.unescape")}
+            {t("yamlEscape.unescape")}
           </Button>
           <Button
             type="button"
@@ -109,7 +109,7 @@ export default function JsonEscape() {
             onClick={handleCopyOutput}
             disabled={!output}
           >
-            {copyLabel ?? t("jsonEscape.copyOutput")}
+            {copyLabel ?? t("yamlEscape.copyOutput")}
           </Button>
           <Button
             type="button"
@@ -117,20 +117,20 @@ export default function JsonEscape() {
             size="lg"
             onClick={handleClear}
           >
-            {t("jsonValidator.clear")}
+            {t("yamlValidator.clear")}
           </Button>
         </div>
 
         <div>
-          <label htmlFor="json-escape-output" className="sr-only">
-            {t("jsonEscape.ariaLabelOutput")}
+          <label htmlFor="yaml-escape-output" className="sr-only">
+            {t("yamlEscape.ariaLabelOutput")}
           </label>
           <Textarea
-            id="json-escape-output"
+            id="yaml-escape-output"
             readOnly
-            aria-label={t("jsonEscape.ariaLabelOutput")}
+            aria-label={t("yamlEscape.ariaLabelOutput")}
             className="min-h-[120px] resize-y bg-muted/80"
-            placeholder={t("jsonEscape.outputPlaceholder")}
+            placeholder={t("yamlEscape.outputPlaceholder")}
             value={output}
           />
         </div>
@@ -141,7 +141,7 @@ export default function JsonEscape() {
             role="alert"
           >
             <p className="text-base font-semibold text-destructive">
-              {t("jsonEscape.unescapeError")}: {error}
+              {t("yamlEscape.unescapeError")}: {error}
             </p>
           </div>
         )}
