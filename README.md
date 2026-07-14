@@ -2,6 +2,8 @@
 
 A small web app to validate, format, convert, and escape YAML. Everything runs in the browser; no data is sent to any server.
 
+**🔗 Try it live: [Free online YAML validator & formatter](https://yaml.shuttlelab.org)** — validate, beautify, convert & escape YAML entirely in your browser.
+
 ## Features
 
 - **Validate** – Parse YAML and see errors with line/column
