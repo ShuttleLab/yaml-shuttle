@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "eslint",
     "preview": "next build && npx serve out",
-    "deploy": "next build && wrangler deploy"
+    "deploy": "next build && wrangler pages deploy out"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
